@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 
 	"github.com/fatih/color"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-contrib/pprof"
 	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
@@ -81,6 +82,7 @@ func (app *appContext) loadRouter(address string, debug bool) *gin.Engine {
 
 	setGinLogger(router, debug)
 
+	router.Use(cors.Default())
 	router.Use(gin.Recovery())
 	app.loadHTML(router)
 	router.Use(static.Serve("/", app.webFS))
